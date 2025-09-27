@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cre: mkoch</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(270deg, #ffd1dc, #ffb6c1, #ffe0f7, #e0f7ff);
+      background-size: 800% 800%;
+      animation: gradientShift 15s ease infinite;
+      overflow: hidden;
+      color: white;
+    }
+
+    @keyframes gradientShift {
+      0%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+      100%{background-position:0% 50%}
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0);
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+
+    .fade-out {
+      opacity: 1;
+      transition: opacity 0.8s ease-out;
+    }
+
+    .fade-out.hidden {
+      opacity: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: row;
+      gap: 40px;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .avatar {
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: white;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .pass-box {
+      text-align: center;
+    }
+
+    .pass-box h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: white;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    }
+
+    .input-field {
+      padding: 12px;
+      font-size: 22px;
+      border: none;
+      border-radius: 12px;
+      width: 200px;
+      text-align: center;
+      margin-bottom: 20px;
+      background: white;
+      color: #ff66a5;
+      font-weight: bold;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 60px);
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .key {
+      background: white;
+      color: #ff66a5;
+      border-radius: 12px;
+      font-size: 22px;
+      font-weight: bold;
+      padding: 15px;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.1s ease-in-out;
+    }
+
+    .key:hover {
+      background-color: #ffe2f0;
+    }
+
+    .key:active {
+      transform: scale(0.95);
+    }
+
+    .action {
+      grid-column: span 3;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+
+    .btn-clear, .btn-submit {
+      padding: 10px 20px;
+      font-size: 24px;
+      border: none;
+      border-radius: 50%;
+      background-color: #ff66a5;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s;
+    }
+
+    .btn-clear:hover, .btn-submit:hover {
+      background-color: #ff3c8a;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .avatar {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto;
+      }
+
+      .keypad {
+        grid-template-columns: repeat(3, 60px);
+      }
+
+      .input-field {
+        width: 180px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body class="fade-out">
+  <div class="container">
+    <div class="avatar">
+      <img src="https://cdn.discordapp.com/attachments/1393884175584591907/1421476763804106763/IMG_6268.jpg?ex=68d92ce6&is=68d7db66&hm=c80c4aa9f459073385f5e27bde4f1f924532c9d3f86d5cb64ed903b22f1b7305&">
+      LEO NÈ
+    </div>
+    <div class="pass-box">
+      <h1>Ngày Tháng Sinh Nhật Của Leo </h1>
+      <input type="text" class="input-field" id="pass" readonly>
+      <div class="keypad">
+        <div class="key" onclick="appendNum('1')">1</div>
+        <div class="key" onclick="appendNum('2')">2</div>
+        <div class="key" onclick="appendNum('3')">3</div>
+        <div class="key" onclick="appendNum('4')">4</div>
+        <div class="key" onclick="appendNum('5')">5</div>
+        <div class="key" onclick="appendNum('6')">6</div>
+        <div class="key" onclick="appendNum('7')">7</div>
+        <div class="key" onclick="appendNum('8')">8</div>
+        <div class="key" onclick="appendNum('9')">9</div>
+        <div class="key" onclick="clearPass()">X</div>
+        <div class="key" onclick="appendNum('0')">0</div>
+        <div class="key" onclick="submitPass()">✔</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const correctPass = "2909";
+    const redirectURL = "file:///C:/Users/Admin/Downloads/webleo/anhleo.html"; // Đổi thành link thật của bạn
+
+    function appendNum(num) {
+      const input = document.getElementById('pass');
+      if (input.value.length < 6) input.value += num;
+    }
+
+    function clearPass() {
+      document.getElementById('pass').value = '';
+    }
+
+    function submitPass() {
+      const pass = document.getElementById('pass').value;
+      if (pass === correctPass) {
+        document.body.classList.add('hidden');
+        setTimeout(() => {
+          window.location.href = redirectURL;
+        }, 800);
+      } else {
+        alert('lộn pass rồi ba mẹ leo ơi :))');
+      }
+    }
+
+    // Hiện hiệu ứng khi trang tải
+    window.onload = () => {
+      document.body.classList.remove('hidden');
+    };
+
+    // Thêm emoji bay lên
+    const emojis = ['🎉', '🎂', '🎈'];
+    for (let i = 0; i < 15; i++) {
+      const emojiElement = document.createElement("div");
+      emojiElement.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      emojiElement.style.position = "absolute";
+      emojiElement.style.fontSize = "2em";
+      emojiElement.style.left = Math.random() * 100 + "vw";
+      emojiElement.style.bottom = "-80px";
+      emojiElement.style.animation = "floatUp " + (7 + Math.random() * 8) + "s linear infinite";
+      emojiElement.style.animationDelay = (Math.random() * 10) + "s";
+      emojiElement.style.opacity = "0.9";
+      emojiElement.style.zIndex = "5";
+      document.body.appendChild(emojiElement);
+    }
+  </script>
+</body>
+</html>
